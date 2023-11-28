@@ -1,46 +1,7 @@
-#include <stdio.h>
-#include <string.h>
+  #include <stdio.h>
+  #include <string.h>
 
-void converteDecimalParaHexadecimal(int decimal) {
-    char hexadecimalNum[20];
-    int index = 0;
-
-    while (decimal > 0) {
-        int resto = decimal % 16;
-
-        if (resto < 10) {
-            hexadecimalNum[index] = resto + 48;
-        } else {
-            hexadecimalNum[index] = resto + 87;
-        }
-
-        index++;
-        decimal = decimal / 16;
-    }
-
-    for (int i = index - 1; i >= 0; i--) {
-        printf("%c", hexadecimalNum[i]);
-    }
-
-    printf("\n");
-}
-void converteDecimalParaBinario(int decimal) {
-    int binario[1000];
-    int i = 0;
-
-    while (decimal > 0) {
-        binario[i] = decimal % 2;
-        decimal = decimal / 2;
-        i++;
-    }
-
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%d", binario[j]);
-    }
-    printf("\n");
-}
-
-int obtemValorCaractereRomano(char c) {
+int valor(char c) {
     if (c == 'I')
         return 1;
     if (c == 'V')
@@ -58,14 +19,14 @@ int obtemValorCaractereRomano(char c) {
     return -1;
 }
 
-int converteRomanoParaInteiro(char *s) {
+int numeroRomanoParaInteiro(char *s) {
     int res = 0;
 
     for (int i = 0; s[i] != '\0'; i++) {
-        int val1 = obtemValorCaractereRomano(s[i]);
+        int val1 = valor(s[i]);
 
         if (s[i + 1] != '\0') {
-            int val2 = obtemValorCaractereRomano(s[i + 1]);
+            int val2 = valor(s[i + 1]);
 
             if (val1 >= val2) {
                 res = res + val1;
@@ -81,17 +42,54 @@ int converteRomanoParaInteiro(char *s) {
     return res;
 }
 
+void decimalParaBinario(int decimal) {
+    int binario[1000];
+    int i = 0;
+
+    while (decimal > 0) {
+        binario[i] = decimal % 2;
+        decimal = decimal / 2;
+        i++;
+    }
+
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", binario[j]);
+    }
+    printf("\n");
+}
+
+void decimalParaHexadecimal(int decimal) {
+    char hexadecimalNum[20];
+    int index = 0;
+
+    while (decimal > 0) {
+        int remainder = decimal % 16;
+
+        if (remainder < 10) {
+            hexadecimalNum[index] = remainder + 48;
+        } else {
+            hexadecimalNum[index] = remainder + 87;
+        }
+
+        index++;
+        decimal = decimal / 16;
+    }
+
+    for (int i = index - 1; i >= 0; i--) {
+        printf("%c", hexadecimalNum[i]);
+    }
+
+    printf("\n");
+}
 int main() {
-    char numRomano[20];
-    scanf("%s", numRomano);
-
-    int resultado = converteRomanoParaInteiro(numRomano);
-
-    printf("%s em base 10: %d\n", numRomano, resultado);
-    printf("%s em base 2: ", numRomano);
-    converteDecimalParaBinario(resultado);
-    printf("%s em base 16: ", numRomano);
-    converteDecimalParaHexadecimal(resultado);
+    char numeroRomano[20];
+    scanf("%s", numeroRomano);
+    int resultado = numeroRomanoParaInteiro(numeroRomano);
+    printf("%s na base 2: ", numeroRomano);
+    decimalParaBinario(resultado);
+    printf("%s na base 10: %d\n", numeroRomano, resultado);
+    printf("%s na base 16: ", numeroRomano);
+    decimalParaHexadecimal(resultado);
 
     return 0;
 }

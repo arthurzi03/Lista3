@@ -1,30 +1,36 @@
 #include <stdio.h>
 #include <math.h>
 
-// Função para calcular o valor do montante ao fim de cada mês
-double calcularMontanteMensal(double principal, double taxaDeJuros, int periodo) {
-    double montante = principal * pow(1 + taxaDeJuros, periodo);
-    return montante;
+double calcularMontanteMensal
+(double valorAporte, double taxaDeJuros, int periodo)
+ {
+    double montante;
+    montante = valorAporte * (1
+ + taxaDeJuros) * ((
+pow((1 + taxaDeJuros), periodo) - 1
+) / taxaDeJuros);
+    
+return montante;
 }
 
 int main() {
-    double principal, taxaDeJuros;
+    double valorAporte, taxaDeJuros;
     int periodo;
 
-    // Entrada de dados
-    printf("Informe o período em meses: ");
     scanf("%d", &periodo);
-
-    printf("Informe o valor do investimento: R$ ");
-    scanf("%lf", &principal);
-
-    printf("Informe a taxa de juros mensal (em decimal): ");
+    scanf("%lf", &valorAporte);
     scanf("%lf", &taxaDeJuros);
 
-    // Cálculo e exibição do montante ao fim de cada mês
-    for (int mes = 1; mes <= periodo; mes++) {
-        double montante = calcularMontanteMensal(principal, taxaDeJuros, mes);
-        printf("Montante ao fim do mês %d: R$ %.2f\n", mes, montante);
+
+    for (int mes = 1
+; mes <= periodo; mes++) {
+        
+double
+ montante = calcularMontanteMensal(valorAporte, taxaDeJuros, mes);
+        
+printf(
+"Montante ao fim do mes %1d: R$ %.2f\n"
+, mes, montante);
     }
 
     return 0;
